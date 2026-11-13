@@ -23,11 +23,10 @@ npm test
 
 The PostgreSQL integration test is skipped unless an isolated test database is configured as described below. The static preview works without database credentials.
 
-No remote is configured or published by this setup. Once the intended empty Git repository has been created, connect it using its actual URL:
+The private GitHub repository is [DrHighjack/seattle-at-home](https://github.com/DrHighjack/seattle-at-home), configured as `origin`. To publish future committed changes:
 
 ```sh
-git remote add origin <repository-url>
-git push -u origin main
+git push origin main
 ```
 
 Before sharing or deploying publicly, review the preview limitations and indexing checklist below. Git readiness does not mean the site is approved for public launch.
