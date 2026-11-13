@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Content Studio | Seattle At Home</title>
+<link rel="stylesheet" href="styles.css?v=seller-questions-1">
+<script src="editor.js?v=portrait-2" defer></script>
+</head>
+<body class="is-editor">
+<a class="skip-link" href="#editor-main">Skip to content</a>
+<header class="editor-topbar">
+  <a class="editor-brand" href="index.html"><img src="assets/seattle-at-home-logo.webp?v=transparent-1" width="82" height="57" alt="Seattle At Home"><span>Content studio</span></a>
+  <div class="editor-top-actions">
+    <p id="editor-status" role="status">Drafts are saved in this browser</p>
+    <button class="editor-secondary" id="export-drafts" type="button">Export drafts</button>
+    <label class="editor-secondary editor-import" for="import-drafts">Import drafts<input id="import-drafts" type="file" accept="application/json,.json"></label>
+    <a class="editor-view-site" href="quiz-studio.html">Quiz studio</a>
+    <a class="editor-view-site" href="index.html">View site</a>
+  </div>
+</header>
+<main class="content-editor" id="editor-main">
+  <aside class="editor-sidebar" aria-label="Page drafts">
+    <div class="editor-sidebar-heading">
+      <p class="eyebrow">Content studio</p>
+      <h1>Pages</h1>
+      <button class="editor-primary" id="add-page" type="button">New page</button>
+    </div>
+    <label class="editor-page-search" for="page-search">Find a page<input id="page-search" type="search" placeholder="Search titles or slugs"></label>
+    <nav id="page-list" class="editor-page-list" aria-label="Select a draft page"></nav>
+    <p class="editor-sidebar-note">Drafts stay in this browser until exported. They aren’t published to the public site.</p>
+  </aside>
+  <section class="editor-workspace" aria-labelledby="selected-page-heading">
+    <div class="editor-pagebar">
+      <div>
+        <p class="eyebrow">Editing draft</p>
+        <h2 id="selected-page-heading">Home</h2>
+      </div>
+      <div class="editor-page-actions">
+        <label class="editor-template-label" for="page-template">Template
+          <select id="page-template">
+            <option value="page">Standard page</option>
+            <option value="neighborhood">Neighborhood guide</option>
+            <option value="story">Blog post / client story</option>
+          </select>
+        </label>
+        <button class="editor-secondary" id="toggle-preview" type="button" aria-pressed="true">Hide preview</button>
+        <button class="editor-primary" id="save-draft" type="button">Save draft</button>
+        <button class="editor-danger" id="delete-page" type="button" hidden>Delete page</button>
+      </div>
+    </div>
+    <div class="editor-content-grid" id="editor-content-grid">
+      <form class="editor-fields" id="page-form">
+        <fieldset class="editor-image-fields editor-brand-kit">
+          <legend>Seattle At Home brand kit</legend>
+          <p>Approved palette and assets, ready to use. Styles apply to this draft’s preview and export, not the public site.</p>
+          <label for="page-brand-preset">Page style preset
+            <select id="page-brand-preset" name="brandPreset">
+              <option value="ivory">Ivory — everyday editorial</option>
+              <option value="navy">Navy — signature statement</option>
+              <option value="teal">Teal — community highlight</option>
+              <option value="gold">Gold — warm feature</option>
+              <option value="terracotta">Terracotta — personal story</option>
+            </select>
+          </label>
+          <div class="editor-brand-swatches" aria-label="Approved brand colors">
+            <span style="--swatch:var(--brand-navy)">Navy <code>#17214C</code></span>
+            <span style="--swatch:var(--brand-teal)">Teal <code>#54DFD9</code></span>
+            <span style="--swatch:var(--brand-gold)">Gold <code>#D8C5A3</code></span>
+            <span style="--swatch:var(--brand-ivory)">Ivory <code>#F4F2ED</code></span>
+            <span style="--swatch:var(--brand-terracotta)">Terracotta <code>#C97A5B</code></span>
+          </div>
+          <p><strong>Typography:</strong> Manrope for most headings and body copy. Select short, personal titles use the supplied Eyesome Script font, hosted with the website.</p>
+          <div class="editor-brand-assets">
+            <button type="button" class="editor-secondary" data-brand-asset="logo">Use brand logo</button>
+            <button type="button" class="editor-secondary" data-brand-asset="portrait">Use Emily’s portrait</button>
+          </div>
+          <small>Asset shortcuts replace only the featured image and its description.</small>
+        </fieldset>
+        <div class="editor-field-row">
+          <label for="page-name">Page name<input id="page-name" name="name" required></label>
+          <label for="page-slug">URL slug<input id="page-slug" name="slug" required></label>
+        </div>
+        <label for="page-headline">Headline<input id="page-headline" name="headline" required></label>
+        <label for="page-intro">Short introduction<textarea id="page-intro" name="intro" rows="3"></textarea></label>
+        <div class="editor-body-field">
+          <label for="page-body">Main copy</label>
+          <div class="editor-rich-toolbar" role="toolbar" aria-label="Format main copy">
+            <button type="button" data-rich-command="bold" aria-label="Bold">Bold</button>
+            <button type="button" data-rich-command="italic" aria-label="Italic">Italic</button>
+            <button type="button" data-rich-command="formatBlock" data-rich-value="h2">Heading</button>
+            <button type="button" data-rich-command="insertUnorderedList">Bullets</button>
+            <button type="button" data-rich-command="formatBlock" data-rich-value="p">Paragraph</button>
+          </div>
+          <div id="page-body" class="editor-richtext" contenteditable="true" role="textbox" aria-label="Main copy" aria-multiline="true"></div>
+          <small>Rich text formatting is preserved in the draft and preview.</small>
+        </div>
+        <fieldset class="editor-image-fields">
+          <legend>Featured image</legend>
+          <label for="page-image">Image path or URL<input id="page-image" name="image" placeholder="assets/photo.jpg or https://…"></label>
+          <label class="editor-upload" for="page-image-file">Upload image<input id="page-image-file" type="file" accept="image/*"><small>Images up to 1 MB are saved with this browser’s draft.</small></label>
+          <label for="page-image-alt">Image description<input id="page-image-alt" name="imageAlt" placeholder="Describe the image"></label>
+        </fieldset>
+        <p class="editor-save-note">Draft edits are local to this browser. Export drafts to transfer them; publishing requires the production CMS.</p>
+      </form>
+      <aside class="editor-preview-panel" id="preview-panel" aria-label="Live page preview">
+        <div class="editor-preview-bar"><span>Live preview</span><span id="preview-route">/index</span><span id="preview-template">Standard page</span></div>
+        <article class="editor-preview-page">
+          <figure class="editor-preview-image" id="preview-image-wrap" hidden>
+            <img id="preview-image" alt="">
+          </figure>
+          <div class="editor-preview-copy">
+            <p class="eyebrow" id="preview-eyebrow">Standard page</p>
+            <h2 id="preview-headline">Your headline</h2>
+            <p class="editor-preview-intro" id="preview-intro"></p>
+            <div class="editor-preview-body" id="preview-body"></div>
+          </div>
+        </article>
+      </aside>
+    </div>
+  </section>
+</main>
+<dialog class="editor-dialog" id="new-page-dialog">
+  <form id="new-page-form">
+    <p class="eyebrow">New draft</p>
+    <h2>Create a page</h2>
+    <label for="new-page-name">Page name<input id="new-page-name" required></label>
+    <label for="new-page-template">Start from a template
+      <select id="new-page-template">
+        <option value="page">Standard page</option>
+        <option value="neighborhood">Neighborhood guide</option>
+        <option value="story">Blog post / client story</option>
+      </select>
+    </label>
+    <div class="editor-dialog-actions">
+      <button class="editor-secondary" id="cancel-new-page" type="button">Cancel</button>
+      <button class="editor-primary" type="submit">Create draft</button>
+    </div>
+  </form>
+</dialog>
+</body>
+</html>

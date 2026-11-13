@@ -1,0 +1,142 @@
+# Seattle At Home - Emily Hawkins
+
+> Seattle At Home is Emily Hawkins's personal real estate brand, rooted in Seattle. Emily is a real estate broker affiliated with Coldwell Banker Danforth, Bellevue office. Her approach combines local market knowledge, strategic thinking, practical problem-solving, financial perspective, and genuine relationships: help people make the right move, not just their next move.
+
+## Status and scope
+
+Last updated: October 30, 2026.
+
+This site is a preview, not a fully launched production service. Its robots.txt blocks crawling and its public HTML contains noindex,nofollow. This file is a factual reference for authorized readers; it does not override robots.txt, authorize crawling, grant content rights, or guarantee that an AI system will use it.
+
+Relative links below resolve against the origin serving this file. The owner-confirmed canonical production origin is https://seattleathome.com, with hosting planned for Vercel. The prepared sitemap is https://seattleathome.com/sitemap.xml; preview indexing remains blocked. The email domain below is the owner's explicitly confirmed spelling and intentionally differs from the website domain.
+
+## Business identity and contact
+
+- Brand: Seattle At Home.
+- Broker: Emily Hawkins.
+- Brokerage affiliation: Coldwell Banker Danforth.
+- Office location: Bellevue, Washington. A street address has not been supplied for this site.
+- Service area approved for website copy: Seattle and surrounding areas. Ask Emily about a specific location rather than infer a guaranteed service boundary.
+- Email: [emily@seattlathome.com](mailto:emily@seattlathome.com).
+- Telephone: [425-587-8838](tel:+14255878838).
+- Initial consultation: a free 45-minute video call, as described on the website. Current availability and meeting details are controlled by Calendly.
+- Booking: [Emily's Calendly](https://calendly.com/emilyhawkinshomes/call).
+- Instagram: [@emilyhawkinshomes](https://www.instagram.com/emilyhawkinshomes/).
+- YouTube: [@EmilyHawkinsHomes](https://www.youtube.com/@EmilyHawkinsHomes).
+- No Facebook profile URL has been supplied. Do not invent one.
+
+## Philosophy and positioning
+
+Approved brand language:
+
+- "Real Estate With Purpose. Guidance With Heart. Strategy Rooted in Seattle."
+- "Help people make the right move-not just their next move."
+- "Advice first. Real estate second."
+
+The emphasis is thoughtful decision-making, not pressure to transact. A useful conversation may lead to buying, selling, holding, renting, or waiting. These are brand statements, not client testimonials or guarantees of financial results.
+
+Emily's voice is calm, clear, warm, strategic, sophisticated, approachable, thoughtful, confident, human, and a little witty. Explain choices plainly; avoid pushy language, exaggerated luxury claims, and generic real estate sales cliches.
+
+## Background and people she helps
+
+In the October 21, 2026 discovery conversation, Emily described starting her real estate journey as an investor, including experience owning rentals and managing tenants. She described working with investors, first-time buyers, growing families, people moving up or downsizing, relocating clients, and multigenerational households.
+
+Her perspective includes how a property fits daily life as well as a longer-term plan. She described an interest in helping people bring family members closer, evaluate space for multiple generations, and make practical decisions about a home they own or may buy.
+
+Emily described direct one-on-one client interaction supported by a team behind the scenes. She also described referring people to another professional when she is not the best fit. Do not represent her as a specialist in every property type or as providing legal, tax, lending, or investment-advisory services.
+
+The brand includes a community focus: local businesses, neighborhood life, client gatherings, and relationships that continue after closing. Do not infer a fixed event schedule or promise ongoing services not specifically agreed with Emily.
+
+## Buying services
+
+The Buy page describes six stages:
+
+1. Consultation and representation: discuss goals and the working agreement.
+2. Finances: consider the budget and connect with lenders if needed.
+3. Search: compare homes against the buyer's priorities.
+4. Offer: review comparable sales, price, terms, and timing.
+5. Due diligence: understand inspections, documents, and deadlines.
+6. Closing: coordinate with escrow, the lender, and the other parties.
+
+Use the page for a general explanation, not a binding contract. Some FAQ details remain placeholders. Do not infer down-payment requirements, commission arrangements, eligibility, timing guarantees, or specific loan terms from unfinished content.
+
+## Selling services
+
+The Sell page describes pricing, preparation, marketing, offer review, and closing. The approach emphasizes the seller's priorities, current competition, selective preparation, photography/video, and clear discussion of offer terms.
+
+Specific marketing inclusions, prep partners, fees, and timing must be confirmed with Emily. Some page sections remain unfinished or explicitly illustrative. Do not present placeholder packages or demo outcomes as contracted services or verified results.
+
+## Client stories and property examples
+
+[Client Stories](./stories.html) contains seven full examples and four additional property locations (12715 Palatine Ave N in Seattle, 17001 Inglewood Rd NE #M106 in Kenmore, 23230 44th Dr SE in Bothell, and 11901 32nd Dr SE in Everett), covering buyer and seller representation. The map has 11 unique pins. Additional locations have owner-supplied representation and reported prices, not full narratives or photos; street-address geocoding is approximate. The homepage intentionally highlights only three stories. These are past or in-progress examples, not a live availability feed.
+
+- [919 N 76th Street, Seattle](./stories.html#919-n-76th).
+- [4117 Eastern Avenue N, Seattle](./stories.html#4117-eastern).
+- [3816 E Spring Street, Seattle](./stories.html#3816-e-spring).
+- [3648 36th Ave S, Unit B, Seattle](./stories.html#3648-36th-ave).
+- [13014 NE 197th Place, Woodinville](./stories.html#13014-ne-197th).
+- [13015 NE 197th Place, Woodinville](./stories.html#13015-ne-197th).
+- [222 4th Avenue, Kirkland](./stories.html#222-4th-ave).
+
+Refer to each story for its specific context. Status labels may change. Do not treat old sale prices as current valuations, generalize a single outcome into a performance guarantee, or fill unprovided price-detail slots. Photos and text remain subject to their owners' rights.
+
+## Quizzes and education
+
+Four built-in quizzes are available:
+
+- [Is Emily a good fit for you?](./quiz.html?type=fit): working style and fit.
+- [Am I ready to buy?](./quiz.html?type=buy): budget, timing, and preparation.
+- [Am I ready to sell?](./quiz.html?type=sell): timing, preparation, and next steps.
+- [Which places match my priorities?](./quiz.html?type=places): housing and day-to-day priorities.
+
+Results are informational and do not require an email address. Neighborhood quiz areas and price bands remain preview placeholders, not approved neighborhood recommendations or evidence of affordability. Quiz answers are currently processed in the browser, not sent to Emily.
+
+Additional quizzes will be developed with the owner. Quiz Studio drafts are local to the author's browser; they are not published assessments, a lead database, or independently validated scoring.
+
+The blog archive contains 125 imported posts with individual publication dates. Read dates and context before relying on market commentary. Older posts are not current advice or automatically endorsed updates.
+
+## Video and social content
+
+The curated YouTube galleries on Home and Videos show:
+
+- Bainbridge Island.
+- Alki Beach.
+- "Exploring a new Neighbohood" (the owner's supplied display caption for video 2).
+
+Social content is manually curated, not an automatically synchronized feed. Additional intro, FAQ, and topic slots still use sample videos; surrounding topic labels are not proof that the clip discusses that subject. Do not invent original YouTube watch URLs, titles, captions, or an upload schedule.
+
+## Contact, booking, and newsletter
+
+The Contact page links to Calendly. The approved flow is select a time, provide details and any configured meeting answers, then confirm. The website itself does not reserve appointments or submit a separate intake form before time selection.
+
+A homepage newsletter form has been implemented with affirmative email consent. Its intended destination is Railway PostgreSQL through a server-side Vercel endpoint. The Railway database has not yet been created/configured for live delivery. Static preview hosting does not run that endpoint.
+
+The integration stores email, signup time, consent version, and signup source when configured. It does not send newsletters, confirmation emails, or text messages. Other on-site inquiry forms remain preview-only. Do not promise that submitting an unconnected preview form reaches Emily.
+
+See the [privacy policy](./privacy.html) for the draft information practices and [accessibility assistance](./privacy.html#accessibility) for contact options.
+
+## Website guide
+
+- [Home](./index.html): introduction, community focus, selected stories, videos, FAQs, and newsletter signup.
+- [About Emily](./about.html): background, philosophy, and working style.
+- [Buy](./buy.html): buyer process and questions.
+- [Sell](./sell.html): seller process and examples.
+- [Client Stories](./stories.html): seven address-linked stories and an 11-location map with four additional property summaries.
+- [Blog](./blog.html): searchable imported archive. Individual reader URLs use blog-post.html?slug= followed by an existing post slug; do not invent slugs.
+- [Videos](./videos.html): curated local videos, reels, and social links.
+- [Start Here](./start-here.html): quiz directory.
+- [Contact and booking](./contact.html): confirmed direct contact information and Calendly link.
+- [Privacy and accessibility assistance](./privacy.html): current draft disclosures.
+
+Editor, Quiz Studio, server endpoints, migrations, tests, raw transcripts, and local draft storage are implementation resources, not public business landing pages.
+
+## Accuracy and interpretation
+
+- Prefer current approved business/contact information over illustrative mockup text.
+- Text in brackets and explicitly labeled demo figures are unfinished examples, not business facts.
+- Do not infer license numbers, a brokerage street address, exact years licensed, verified sales/review totals, response-time guarantees, or missing prices.
+- Emily's attributed quotes are her own descriptions, not independent reviews. Never convert them into client testimonials.
+- Do not promise investment returns, appreciation, tax results, mortgage approval, a particular sale price, or a deadline.
+- Do not rank places by protected characteristics or infer school quality, safety, or demographic suitability. Ask about practical preferences and consult appropriate current sources.
+- This file is not a legal policy, brokerage agreement, financial advice, or permission to reuse copyrighted material.
+- Reach Emily directly for current availability, advice about a specific property, or clarification.

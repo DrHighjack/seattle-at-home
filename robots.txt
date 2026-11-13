@@ -1,0 +1,11 @@
+# Seattle At Home - preview configuration
+# Crawling remains blocked until the owner approves production launch.
+# This applies to all compliant crawlers, including search and AI crawlers.
+User-agent: *
+Disallow: /
+
+# robots.txt is not authentication and does not guarantee removal from indexes.
+# Public HTML also retains noindex,nofollow during this preview.
+# The sitemap is prepared for production; Disallow above still blocks crawling.
+Sitemap: https://seattleathome.com/sitemap.xml
+# Launch checklist and business context: /llms.txt and the project README.

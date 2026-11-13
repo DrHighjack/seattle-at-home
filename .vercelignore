@@ -1,0 +1,11 @@
+.env*
+tests/
+scripts/
+database/
+*.txt
+!robots.txt
+!llms.txt
+*.md
+*.pdf
+.agents/
+.git/

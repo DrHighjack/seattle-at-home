@@ -1,0 +1,16 @@
+{
+  "name": "seattle-at-home",
+  "version": "1.0.0",
+  "private": true,
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "seo:generate": "node scripts/generate-seo.cjs",
+    "test": "node --test tests/*.test.cjs",
+    "db:migrate": "node scripts/migrate-newsletter.cjs"
+  },
+  "dependencies": {
+    "pg": "^8.16.3"
+  }
+}

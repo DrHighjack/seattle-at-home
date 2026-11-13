@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Quiz Studio | Seattle At Home</title>
+<link rel="stylesheet" href="styles.css?v=seller-questions-1">
+<script src="quiz-studio.js" defer></script>
+</head>
+<body class="is-editor is-quiz-studio">
+<a class="skip-link" href="#quiz-studio-main">Skip to content</a>
+<header class="editor-topbar">
+  <a class="editor-brand" href="editor.html"><strong>Seattle At Home</strong><span>Quiz studio</span></a>
+  <div class="editor-top-actions">
+    <p id="quiz-studio-status" role="status">Quiz drafts stay in this browser</p>
+    <button class="editor-secondary" id="export-quizzes" type="button">Export quizzes</button>
+    <label class="editor-secondary editor-import" for="import-quizzes">Import quizzes<input id="import-quizzes" type="file" accept="application/json,.json"></label>
+    <a class="editor-view-site" href="start-here.html">View quiz list</a>
+  </div>
+</header>
+<main class="quiz-studio" id="quiz-studio-main">
+  <section class="quiz-studio-intro">
+    <p class="eyebrow">Content studio</p>
+    <h1>Create a quiz draft</h1>
+    <p>Build a simple question-by-question quiz with a custom result message. Drafts are local to this browser and appear on the preview’s Start Here page. They are not published or connected to lead collection.</p>
+  </section>
+  <div class="quiz-studio-layout">
+    <aside class="quiz-studio-list" aria-labelledby="saved-quizzes-heading">
+      <div class="quiz-studio-list-heading">
+        <h2 id="saved-quizzes-heading">Your quiz drafts</h2>
+        <button class="editor-primary" id="new-quiz" type="button">New quiz</button>
+      </div>
+      <nav id="quiz-draft-list" aria-label="Saved quiz drafts"></nav>
+      <p class="editor-sidebar-note">Built-in quizzes stay unchanged. Export drafts to share or move them to another browser.</p>
+    </aside>
+    <form class="quiz-studio-form" id="quiz-draft-form">
+      <input id="quiz-id" type="hidden">
+      <label for="quiz-title">Quiz title<input id="quiz-title" required maxlength="120"></label>
+      <label for="quiz-description">Short description<textarea id="quiz-description" rows="3" maxlength="400"></textarea></label>
+      <section class="quiz-studio-questions" aria-labelledby="quiz-questions-heading">
+        <div class="quiz-studio-section-heading">
+          <div><h2 id="quiz-questions-heading">Questions</h2><p>Each question needs at least two answer choices.</p></div>
+          <button class="editor-secondary" id="add-quiz-question" type="button">Add question</button>
+        </div>
+        <div id="quiz-question-list"></div>
+      </section>
+      <fieldset class="quiz-studio-result">
+        <legend>Result shown after the last answer</legend>
+        <label for="quiz-result-title">Result heading<input id="quiz-result-title" required maxlength="120"></label>
+        <label for="quiz-result-copy">Result message<textarea id="quiz-result-copy" rows="4" maxlength="1000"></textarea></label>
+        <p>Results are informational only. The preview does not save answers or send contact details.</p>
+      </fieldset>
+      <div class="quiz-studio-actions">
+        <button class="editor-primary" type="submit">Save quiz draft</button>
+        <button class="editor-danger" id="delete-quiz" type="button" hidden>Delete draft</button>
+      </div>
+    </form>
+  </div>
+</main>
+<template id="quiz-question-template">
+  <fieldset class="quiz-studio-question" data-quiz-question>
+    <legend class="visually-hidden">Quiz question</legend>
+    <div class="quiz-studio-question-heading"><strong data-question-number></strong><button class="editor-danger" type="button" data-remove-question>Remove question</button></div>
+    <label>Question text<input data-question-text required maxlength="300"></label>
+    <div class="quiz-studio-options" data-option-list></div>
+    <button class="editor-secondary" type="button" data-add-option>Add answer choice</button>
+  </fieldset>
+</template>
+<template id="quiz-option-template">
+  <div class="quiz-studio-option" data-quiz-option>
+    <label><span data-option-label></span><input data-option-text required maxlength="180"></label>
+    <button class="editor-danger" type="button" data-remove-option>Remove choice</button>
+  </div>
+</template>
+</body>
+</html>
