@@ -23,7 +23,7 @@ npm test
 
 The PostgreSQL integration test is skipped unless an isolated test database is configured as described below. The static preview works without database credentials.
 
-The private GitHub repository is [DrHighjack/seattle-at-home](https://github.com/DrHighjack/seattle-at-home), configured as `origin`. To publish future committed changes:
+The public GitHub repository is [DrHighjack/seattle-at-home](https://github.com/DrHighjack/seattle-at-home), configured as `origin`. To publish future committed changes:
 
 ```sh
 git push origin main
@@ -41,7 +41,7 @@ The decorative ring covers the native 2px button border at rest. On hover it gro
 
 ## Google reviews
 
-The homepage links directly to the Google Maps profile for Emily Hawkins | Seattle At Home, matched to the business name and `seattleathome.com`. Its 4.9 rating and 55-review count were checked on November 11, 2026. These figures are a static snapshot, not an automatically updated feed; check Google and update the displayed rating, stars, count, and date when they change. Review text stays on Google rather than being copied into the site without confirmed testimonial permissions. The section requires no API key or third-party embed.
+The homepage links directly to the Google Maps profile for Emily Hawkins | Seattle At Home, matched to the business name and `seattleathome.com`. Its 4.9 rating and 55-review count were checked on November 11, 2026. These figures are a static snapshot, not an automatically updated feed; check Google and update the displayed rating, stars, count, and date when they change. The homepage includes the verified excerpt attributed to Amy Schwab. Confirm permission before adding other testimonial text. The section requires no API key or third-party embed.
 
 ## Newsletter: Vercel + Railway Postgres
 
@@ -127,7 +127,8 @@ The 404 page is a clickable design preview. Python's basic server still uses its
 - Confirmed contact details: `emily@seattlathome.com` (spelling explicitly confirmed by the owner), `425-587-8838`, Coldwell Banker Danforth, Bellevue office. No street address was supplied.
 - The Contact page links to `https://calendly.com/emilyhawkinshomes/call` instead of displaying a non-working contact form. The approved flow is Calendly's standard time selection, invitee details/questions, then confirmation. Configure the event duration, availability, required intake questions and meeting location in Emily's Calendly account; the static site cannot configure or verify those account settings. No booking was submitted during validation.
 
-- On November 2, 2026, the owner supplied 8 homes sold in 2026 so far (correcting the initial 12) and 55 reviews averaging 4.9 stars. The initially supplied 3 years licensed was superseded at the owner's request by "Licensed since 2022," matching Emily's October 21 discovery transcript and avoiding a year count that becomes outdated. The owner separately confirmed 2025 averages of 18 days on market and a 99% list-to-sale price ratio. Home/About/Sell stat blocks use these supplied figures, with their differing periods retained; the review platform/source is still pending and no review schema or invented attribution is added. The separate illustrative seller-story outcome remains demo content until a real story is supplied.
+- On November 2, 2026, the owner supplied 8 homes sold in 2026 so far (correcting the initial 12) and 55 reviews averaging 4.9 stars. The owner separately confirmed 2025 averages of 18 days on market and a 99% list-to-sale price ratio. On November 16, the owner updated Emily's background to investor since 2012 and broker since 2023; the Home and About stats and seller FAQ use the newer broker date rather than earlier, conflicting licensing text.
+- The About page includes Emily's supplied response window, career and education, weekend interests, drink preferences, travel and pole-vaulting facts, specialties, and referral areas. Its lists of specialties and referral-only property types reflect the owner's November 16, 2026 wording; no additional certifications or memberships are assumed.
 - The confirmed professional title is Broker. License-number placeholders were removed at the owner's request, not replaced with invented identifiers. All public footers use the exact owner-supplied fair-housing statement. The owner approved the existing privacy/accessibility copy; draft-review wording was removed without claiming independent legal review or changing the still-preview form behavior. These content approvals do not enable public indexing or resolve the other pending content.
 - Other on-site inquiry forms are local-only and display "Preview only — form not connected". The newsletter form is the exception: it uses the database endpoint described above. Calendly handles its own booking data after visitors follow the external link.
 - Placeholder intro, FAQ, and listing videos and their unfinished video-only sections have been removed sitewide, along with random stand-in playback. The real YouTube galleries and curated Instagram reels remain. No third-party video, Tally or Calendly scripts load.
@@ -187,13 +188,23 @@ Home, About, Buy, Sell, Contact, and Videos include distinct excerpts from `2026
 - A shared CTA band was added to pages whose mockups lacked it, as requested. The homepage story strip becomes a responsive grid to avoid horizontal scrolling. The header keeps both Emily's name and the firm visible at every size.
 - Missing 404 and legal content use explicit minimal preview/placeholder pages, not invented brokerage policies.
 
-Production hosting is planned for Vercel. Production editing, forms, bookings, final legal content and launch checks remain separate work; static hosting does not make local drafts publish or sync.
+The GitHub-backed website editor described below publishes repository content; the older browser-local drafts do not publish or sync. Forms, bookings, final legal content and launch checks remain separate work.
 
-## Content Editor Prototype
+## Website editor
 
-`editor.html` is a local content-editing prototype. It seeds drafts for the existing key pages, loads imported blog posts, supports headline/body/photo edits, offers standard-page, neighborhood-guide, and blog/client-story templates, and has live preview plus JSON import/export. Article formatting is preserved in the rich-text editor. Drafts are stored in the current browser's localStorage only; edits do not publish to the public pages or synchronize between devices. Production editing needs authenticated server-side storage or a CMS integration.
+After these files are committed, pushed, and deployed, open `/studio/` on the deployed website. For local testing, open http://127.0.0.1:8088/studio/. The editor connects directly to the `main` branch of `DrHighjack/seattle-at-home`, loads the actual repository content, and publishes changed files in one Git commit. It never writes unpublished changes to the public site. A preview is available for static page content; scripts are disabled in that preview.
 
-`quiz-studio.html` creates additional local quiz drafts with question choices and a custom result message. These are stored in localStorage and can be exported/imported as JSON; they appear on `start-here.html` and can be previewed, but are not published or connected to lead collection. The built-in quizzes remain unchanged.
+**One-time access setup:** each editor needs their own GitHub account and write access to this repository; the repository owner must invite them. In GitHub, create a fine-grained personal access token limited to this repository, with **Contents: Read and write** and an expiration date. Enter it into the editor over HTTPS (or localhost). The editor sends it only to `api.github.com`, keeps it in memory for the current tab, and clears the input after connecting. It is not stored in localStorage, a backup, or the repository. Never share a token with another person; revoke it in GitHub if compromised. Reconnect after closing the tab or when the token expires.
+
+Select **Website pages** to edit existing page text, links, input hints, images, video files, captions, and search titles/descriptions. Search locates text fragments while preserving surrounding formatting. Sections can be hidden, removed or reordered; existing story and video cards can be duplicated and then edited. Duplicate a selected page to create a new page from its layout, optionally adding it to the navigation across the site. Replace the copied content and search description before publishing. Enable shared editing to apply matching header/footer text and links across pages. Search metadata is stored in `content/page-metadata.json` and used by `npm run seo:generate`. Review other instances of contact details separately, including page content and structured business information.
+
+Select **Blog articles** to add, edit or remove posts, upload featured or inline images, manage categories and tags, and format article text. Changing a published slug breaks links to the old address. Select **Instagram reels** to manage reel links or upload local videos, posters and WebVTT captions. Select **Quizzes** to edit built-in quiz questions, results and place cards, or add custom quizzes. Built-in answer order determines scoring, so retain the meaning of each answer. Custom quizzes do not collect contact details. Quiz content is stored in `content/quizzes.json`; the public page reports an error if that file cannot be loaded.
+
+Uploaded images are limited to 5 MB, videos to 25 MB, and captions to 1 MB. Keep licensed media and obtain client consent before publishing. The editor updates the sitemap when pages, articles or custom quizzes change. It does not design entirely new page layouts, configure booking/forms, update business-wide structured data, or change the site's code and styling. Those still require development work.
+
+Changes remain in the tab until **Publish changes**. Download a backup before leaving; backups contain content and media but no token. A backup can be restored only against the same base commit. If the branch changes concurrently, publishing stops without overwriting it; download the backup, reconnect and reapply the changes. Publishing writes to GitHub, not directly to Vercel: confirm that the project deploys from this repository and check the hosting build and live site after publishing. A repository update alone is not proof of a successful deployment. This editor cannot see unrelated uncommitted changes on a developer's computer.
+
+`editor.html` and `quiz-studio.html` remain the older local prototypes. Their drafts are stored in the current browser only, are not automatically imported into the website editor, and do not publish or sync. Local blog or quiz drafts can override published content in that browser; use a private window or another browser to check the public result.
 
 ## Blog Archive
 

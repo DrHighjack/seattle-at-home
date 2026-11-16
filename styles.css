@@ -68,14 +68,14 @@ button, a, summary, input, textarea, select { touch-action: manipulation; }
 .site-header { background: var(--eh-page); border-bottom: 1px solid var(--eh-line); }
 .header-inner { max-width: 1440px; margin: auto; padding: 22px 40px; display: flex; align-items: center; gap: 24px; }
 .brand { display: flex; align-items: center; gap: 16px; text-decoration: none; color: var(--eh-ink); flex-shrink: 0; }
-.brand-logo { display: block; width: 120px; height: auto; flex-shrink: 0; border-radius: 6px; transition: opacity 180ms ease; }
+.brand-logo { display: block; width: 132px; height: auto; flex-shrink: 0; border-radius: 6px; transition: opacity 180ms ease; }
 .site-header .brand { position: relative; }
 .site-header .brand::after {
   content: "";
   position: absolute;
   top: 50%;
   left: 0;
-  width: 120px;
+  width: 132px;
   aspect-ratio: 408 / 282;
   transform: translateY(-50%);
   background: url("assets/seattle-at-home-circle-logo.webp") center / contain no-repeat;
@@ -258,8 +258,8 @@ progress::-moz-progress-bar { background: var(--accent); border-radius: 999px; }
 @media (max-width: 767px) {
   .header-inner { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px 12px; padding: 18px 24px; }
   .brand { grid-column: 1; grid-row: 1 / span 2; display: flex; flex-direction: column; align-items: flex-start; gap: 2px; align-content: flex-start; margin: 0; }
-  .brand-logo { width: 96px; }
-  .site-header .brand::after { top: 0; width: 96px; transform: none; }
+  .brand-logo { width: 106px; }
+  .site-header .brand::after { top: 0; width: 106px; transform: none; }
   .brand-name { font-size: 16px; }
   .menu-toggle { grid-column: 2; grid-row: 1; justify-self: end; }
   .header-book { grid-column: 2; grid-row: 2; justify-self: end; min-height: 44px; padding: 8px 12px; font-size: 15px; }
@@ -662,6 +662,9 @@ img.source-42 { display: block; width: 100%; height: auto; padding: 0; object-fi
 .google-reviews-stars { color: var(--brand-gold); font-size: 27px; letter-spacing: .04em; line-height: 1; white-space: nowrap; }
 .google-reviews-stars span { background: linear-gradient(90deg, var(--brand-gold) 90%, rgba(244, 242, 237, .28) 90%); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 .google-reviews-count { margin: 8px 0 0; font-size: 17px; }
+.google-review-quote { margin: 0; padding-left: 18px; border-left: 3px solid var(--brand-gold); }
+.google-review-quote p { margin: 0 0 8px; font-size: 19px; font-style: italic; line-height: 1.5; }
+.google-review-quote cite { color: #E1E4E6; font-size: 15px; font-style: normal; }
 .google-reviews-card .google-reviews-button { max-width: 100%; background: var(--brand-teal); color: var(--brand-navy); }
 .google-reviews-card .google-reviews-button:hover { background: var(--brand-ivory); }
 .google-reviews-card .google-reviews-button:focus-visible { outline-color: var(--brand-teal); }

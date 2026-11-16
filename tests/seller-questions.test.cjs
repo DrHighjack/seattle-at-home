@@ -23,7 +23,7 @@ test('seller questions include all supplied answers and production attribution',
     'Will I work with you directly, and how will you keep me updated?',
   ]);
   for (const text of [
-    "I've been licensed for 5 years",
+    "I've been a broker since 2023 and a real estate investor since 2012",
     "I've closed 40 transactions totaling $38.5M, including 13 listings",
     '15 of those transactions closed in the last 12 months',
     'The median is 8 days on market',

@@ -175,61 +175,44 @@ async function loadReels() {
 }
 loadReels();
 
-const unsure = { label: 'I’m not sure', value: 'unsure' };
-const choices = (labels) => [...labels.map((label, index) => ({ label, value: String(index) })), unsure];
-const readinessChoices = [
-  { label: 'Not yet', value: '0' },
-  { label: 'Partly', value: '0.5' },
-  { label: 'Yes, I’ve reviewed it', value: '1' },
-  unsure,
-];
-const quizzes = {
-  buy: {
-    title: 'Am I ready to buy?',
-    questions: [
-      'Have you outlined your total monthly housing costs?',
-      'Have you explored lender financing or a cash-purchase plan?',
-      'Have you planned for upfront costs and reserves after closing?',
-      'Have you listed your must-haves and tradeoffs?',
-      'Have you considered your lease or existing-home timing?',
-      'Have you reviewed offers, inspections and closing?',
-    ].map((question) => ({ question, options: readinessChoices })),
-  },
-  sell: {
-    title: 'Am I ready to sell?',
-    questions: [
-      'Have you clarified your goals and timing?',
-      'Have you planned your next housing step?',
-      'Have you discussed estimated net proceeds?',
-      'Have you reviewed preparation and as-is options?',
-      'Have you considered showings and access?',
-      'Have you identified ownership or paperwork questions?',
-    ].map((question) => ({ question, options: readinessChoices })),
-  },
-  fit: {
-    title: 'Is Emily a good fit?',
-    questions: [
-      { question: 'What are you hoping to do?', options: choices(['Buy', 'Sell', 'Buy and sell', 'Learn', 'Another service']) },
-      { question: 'Where would you like help?', options: choices(['[SERVICE AREA]', 'Elsewhere']) },
-      { question: 'Which guidance style sounds useful?', options: choices(['Detailed explanations', 'Concise recommendations', 'A mix']) },
-      { question: 'How would you like routine updates?', options: choices(['Email', 'Phone', 'Text, if arranged']) },
-      { question: 'How hands-on would you like the planning to be?', options: choices(['Collaborative checklists', 'Recommendations with room to decide', 'Start by talking']) },
-      { question: 'When are you considering a move?', options: choices(['Within 3 months', '3–6 months', '6+ months']) },
-    ],
-  },
-  places: {
-    title: 'Which places match my priorities?',
-    questions: [
-      { question: 'What housing type would you like to explore?', options: choices(['Condo', 'Townhouse', 'Detached home', 'Open to options']) },
-      { question: 'Is there a destination you travel to regularly?', options: choices(['Downtown Seattle', 'Bellevue', 'Redmond', 'Another broad destination', 'None']) },
-      { question: 'Which travel preference matters most?', options: choices(['Transit', 'Walking or biking', 'Driving', 'Flexible']) },
-      { question: 'Which nearby amenity matters most?', options: choices(['Parks and trails', 'Groceries', 'Cafes and restaurants', 'Waterfront access', 'No preference']) },
-      { question: 'What is your single primary priority?', options: choices(['Transit access', 'Parks and trails', 'Housing options']) },
-    ],
-  },
+async function initializeQuizzes() {
+const quizRoot = document.querySelector('#quiz-root');
+const quizGrid = document.querySelector('[data-custom-quizzes]');
+if (!quizRoot && !quizGrid && !document.querySelector('[data-quiz-kind]')) return;
+const response = await fetch('content/quizzes.json', { cache: 'no-cache' });
+if (!response.ok) throw new Error('Quiz content is unavailable.');
+const quizContent = await response.json();
+const shapes = { buy: [4, 4, 4, 4, 4, 4], sell: [4, 4, 4, 4, 4, 4], fit: [6, 3, 4, 4, 4, 4], places: [5, 6, 5, 6, 4] };
+const resultKeys = {
+  buy: ['incompleteTitle', 'incompleteDescription', 'exploreTitle', 'planTitle', 'readyTitle', 'description', 'contactCopy', 'financingNeeded', 'financingReady', 'costsNeeded', 'costsReady', 'finalStep'],
+  sell: ['incompleteTitle', 'incompleteDescription', 'exploreTitle', 'planTitle', 'readyTitle', 'description', 'contactCopy', 'proceedsNeeded', 'proceedsReady', 'paperworkNeeded', 'paperworkReady', 'finalStep'],
+  fit: ['otherResourceTitle', 'unclearTitle', 'matchTitle', 'explanation', 'contactCopy'],
+  places: ['allTitle', 'shortlistTitle', 'intro', 'explanation', 'contactCopy'],
 };
+if (!Array.isArray(quizContent.custom) || !quizContent.builtIn) throw new Error('Quiz content is invalid.');
+const quizzes = {};
+for (const [kind, lengths] of Object.entries(shapes)) {
+  const source = quizContent.builtIn[kind];
+  if (!source || typeof source.title !== 'string' || !source.title.trim() || !Array.isArray(source.questions) || source.questions.length !== lengths.length) throw new Error(`The ${kind} quiz is invalid.`);
+  if (!source.results || resultKeys[kind].some((key) => typeof source.results[key] !== 'string' || !source.results[key].trim())) throw new Error(`The ${kind} quiz results are invalid.`);
+  if (kind === 'places' && (!Array.isArray(source.cards) || source.cards.length !== 6 || source.cards.some((card) => !card || ['name', 'why', 'check'].some((key) => typeof card[key] !== 'string' || !card[key].trim())))) throw new Error('The places quiz cards are invalid.');
+  quizzes[kind] = {
+    title: source.title,
+    questions: source.questions.map((question, index) => {
+      if (typeof question.question !== 'string' || !question.question.trim() || !Array.isArray(question.options) || question.options.length !== lengths[index] || question.options.some((option) => typeof option !== 'string' || !option.trim())) throw new Error(`The ${kind} quiz has invalid questions.`);
+      return {
+        question: question.question,
+        options: question.options.map((label, optionIndex) => ({
+          label,
+          value: optionIndex === question.options.length - 1 ? 'unsure' : (kind === 'buy' || kind === 'sell' ? ['0', '0.5', '1'][optionIndex] : String(optionIndex)),
+        })),
+      };
+    }),
+  };
+}
+const escapeQuizHtml = (value) => String(value).replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#39;');
 
-function getCustomQuizzes() {
+function localCustomQuizzes() {
   try {
     const saved = JSON.parse(localStorage.getItem('seattle-at-home-custom-quizzes-v1') || '[]');
     if (!Array.isArray(saved)) return [];
@@ -246,6 +229,20 @@ function getCustomQuizzes() {
   } catch {
     return [];
   }
+}
+
+function getCustomQuizzes() {
+  const local = localCustomQuizzes();
+  const ids = new Set(local.map((quiz) => quiz.id));
+  const isValid = (quiz) => quiz
+    && typeof quiz.id === 'string' && typeof quiz.title === 'string' && typeof quiz.resultTitle === 'string'
+    && Array.isArray(quiz.questions) && quiz.questions.length
+    && quiz.questions.every((question) => typeof question.question === 'string' && question.question.trim()
+      && Array.isArray(question.options) && question.options.length >= 2
+      && question.options.every((option) => typeof option === 'string' && option.trim()));
+  if (!quizContent.custom.every(isValid)) throw new Error('Published custom quiz data is invalid.');
+  const published = quizContent.custom;
+  return [...published.filter((quiz) => !ids.has(quiz.id)), ...local];
 }
 
 function renderCustomQuizCards() {
@@ -273,7 +270,7 @@ function renderCustomQuizCards() {
     card.append(count, heading, description, link);
     grid.append(card);
   });
-  note.hidden = customQuizzes.length === 0;
+  note.hidden = localCustomQuizzes().length === 0;
 }
 
 renderCustomQuizCards();
@@ -284,18 +281,20 @@ document.querySelectorAll('[data-quiz-kind]').forEach((link) => {
   if (quiz && countLabel) countLabel.textContent = `${quiz.questions.length} questions`;
 });
 
-function readinessResult(answers) {
+function readinessResult(answers, kind) {
+  const copy = quizContent.builtIn[kind].results;
   const known = answers.filter((answer) => answer !== 'unsure' && answer !== undefined);
-  if (known.length < 4) return { title: 'Let’s fill in the blanks', description: 'There are a few things you’re still exploring. That’s fine. We’ll figure it out together.' };
+  if (known.length < 4) return { title: copy.incompleteTitle, description: copy.incompleteDescription };
   const ratio = known.reduce((sum, answer) => sum + Number(answer), 0) / known.length;
-  const title = ratio < 1 / 3 ? 'Explore options' : ratio < 2 / 3 ? 'Build a plan' : 'Discuss next steps';
-  return { title, description: 'This is a planning check-in, not a qualification or a guarantee. The next steps below reflect the things you have reviewed and the questions still to explore.' };
+  const title = ratio < 1 / 3 ? copy.exploreTitle : ratio < 2 / 3 ? copy.planTitle : copy.readyTitle;
+  return { title, description: copy.description };
 }
 
 function fitResult(answers) {
-  if (answers[0] === '4' || answers[1] === '1') return 'Let’s discuss the right resource';
-  if (answers[0] === 'unsure' || answers[1] === 'unsure') return 'Let’s clarify your plans';
-  return 'Let’s talk about working together';
+  const copy = quizContent.builtIn.fit.results;
+  if (answers[0] === '4' || answers[1] === '1') return copy.otherResourceTitle;
+  if (answers[0] === 'unsure' || answers[1] === 'unsure') return copy.unclearTitle;
+  return copy.matchTitle;
 }
 
 function renderCustomQuiz(quiz, root) {
@@ -441,7 +440,6 @@ function renderCustomQuiz(quiz, root) {
   renderQuestion();
 }
 
-const quizRoot = document.querySelector('#quiz-root');
 if (quizRoot) {
   const kind = new URLSearchParams(location.search).get('type') || 'buy';
   const customQuiz = kind.startsWith('custom-')
@@ -476,12 +474,12 @@ if (quizRoot) {
       const question = quiz.questions[questionIndex];
       quizRoot.classList.remove('is-result');
       quizRoot.innerHTML = `
-        <div class="quiz-progress-label"><strong>${quiz.title}</strong><span>Question ${questionIndex + 1} of ${quiz.questions.length}</span></div>
+        <div class="quiz-progress-label"><strong>${escapeQuizHtml(quiz.title)}</strong><span>Question ${questionIndex + 1} of ${quiz.questions.length}</span></div>
         <progress max="${quiz.questions.length}" value="${questionIndex + 1}" aria-label="Quiz progress"></progress>
         <form id="quiz-question" novalidate>
-          <fieldset><legend><h1 tabindex="-1">${question.question}</h1></legend>
+          <fieldset><legend><h1 tabindex="-1">${escapeQuizHtml(question.question)}</h1></legend>
           <p class="muted">Pick the answer that feels closest. There are no wrong ones.</p>
-          <div class="quiz-options">${question.options.map((option) => `<label class="quiz-option ${option.value === 'unsure' ? 'unsure-option' : ''}"><input type="radio" name="answer" value="${option.value}" ${answers[questionIndex] === option.value ? 'checked' : ''}><span>${option.label}${option.value === 'unsure' ? '<span class="option-help">That’s fine. We’ll figure it out together.</span>' : ''}</span></label>`).join('')}</div>
+          <div class="quiz-options">${question.options.map((option) => `<label class="quiz-option ${option.value === 'unsure' ? 'unsure-option' : ''}"><input type="radio" name="answer" value="${option.value}" ${answers[questionIndex] === option.value ? 'checked' : ''}><span>${escapeQuizHtml(option.label)}${option.value === 'unsure' ? '<span class="option-help">That’s fine. We’ll figure it out together.</span>' : ''}</span></label>`).join('')}</div>
           </fieldset><p id="quiz-error" role="alert" hidden>Choose an answer, or select “I’m not sure”.</p>
           <div class="quiz-actions"><button class="button secondary" type="button" data-back>← Back</button><button class="button" type="submit">${questionIndex === quiz.questions.length - 1 ? 'See my result' : 'Next →'}</button></div>
         </form>`;
@@ -510,30 +508,30 @@ if (quizRoot) {
       return '<div class="result-actions"><a class="button" href="contact.html">Book a free 45-minute video call</a><button class="text-button" type="button" data-edit>Edit my answers</button><button class="text-button" type="button" data-retake>Retake the quiz</button></div>';
     }
     function contactForm() {
-      return `<section class="result-contact"><h2>Rather I reach out? (optional)</h2><p>Leave your email and I’ll send you a personal note about your result within [RESPONSE TIME].</p><form data-preview-form><label>Email address<input type="email" name="email" placeholder="you@example.com" required autocomplete="email"></label><button class="button" type="submit">Ask Emily to contact me</button><p class="muted">I’ll only use your email to reply. <a href="privacy.html">Privacy policy</a></p></form></section>`;
+      return `<section class="result-contact"><h2>Rather I reach out? (optional)</h2><p>${escapeQuizHtml(quizContent.builtIn[kind].results.contactCopy)}</p><form data-preview-form><label>Email address<input type="email" name="email" placeholder="you@example.com" required autocomplete="email"></label><button class="button" type="submit">Ask Emily to contact me</button><p class="muted">I’ll only use your email to reply. <a href="privacy.html">Privacy policy</a></p></form></section>`;
     }
     function placeCards(numbers) {
-      const reasons = ['[WHY: e.g., several trailheads and large parks within a short drive]', '[WHY: e.g., light rail station and a waterfront park]', '[WHY: e.g., a mix of townhomes, condos and houses near green space]'];
-      const checks = ['[CHECK: e.g., commute time at rush hour, recent sale prices in your range]', '[CHECK: e.g., HOA rules, parking, noise near the station]', '[CHECK: e.g., property taxes, lot sizes, upcoming construction]'];
-      return `<div class="place-grid">${numbers.map((number) => `<article class="place-card"><figure class="quiz-editorial-photo"><img src="assets/emily-services/selling.webp" width="960" height="640" loading="lazy" decoding="async" alt="Emily walking along a Seattle sidewalk with a coffee"><figcaption>Seattle life with Emily; not a photo of a matched area.</figcaption></figure><div class="place-copy"><h2>[PLACE ${number}]</h2><strong>Why it matched</strong><p>${reasons[(number - 1) % 3]}</p><strong>What to check</strong><p>${checks[(number - 1) % 3]}</p></div></article>`).join('')}</div>`;
+      const cards = quizContent.builtIn.places.cards;
+      return `<div class="place-grid">${numbers.map((number) => `<article class="place-card"><figure class="quiz-editorial-photo"><img src="assets/emily-services/selling.webp" width="960" height="640" loading="lazy" decoding="async" alt="Emily walking along a Seattle sidewalk with a coffee"><figcaption>Seattle life with Emily; not a photo of a matched area.</figcaption></figure><div class="place-copy"><h2>${escapeQuizHtml(cards[number - 1].name)}</h2><strong>Why it matched</strong><p>${escapeQuizHtml(cards[number - 1].why)}</p><strong>What to check</strong><p>${escapeQuizHtml(cards[number - 1].check)}</p></div></article>`).join('')}</div>`;
     }
     function renderResult() {
       showingResults = true;
       quizRoot.classList.add('is-result');
       let title;
       let content;
+      const copy = quizContent.builtIn[kind].results;
       if (kind === 'places') {
         const primary = answers[quiz.questions.length - 1];
         const groups = { '0': [1, 2, 3], '1': [2, 4, 5], '2': [3, 5, 6] };
         const numbers = showingAllPlaces || primary === 'unsure' ? [1, 2, 3, 4, 5, 6] : groups[primary];
-        title = numbers.length === 6 ? 'See all areas' : 'Three places to start exploring';
-        content = '<p class="result-lead">Places to explore; verify individual homes, prices and routes with Emily.</p><p class="muted">Your single primary priority selects a fixed shortlist. Your other answers are discussion context, not calculated matching. [PLACE] cards are placeholders, not neighborhood recommendations.</p>' + placeCards(numbers) + '<button type="button" class="text-button" data-all-places>See all the areas I cover</button>';
+        title = numbers.length === 6 ? copy.allTitle : copy.shortlistTitle;
+        content = `<p class="result-lead">${escapeQuizHtml(copy.intro)}</p><p class="muted">${escapeQuizHtml(copy.explanation)}</p>` + placeCards(numbers) + '<button type="button" class="text-button" data-all-places>See all the areas I cover</button>';
       } else if (kind === 'fit') {
         title = fitResult(answers);
         const update = quiz.questions[3].options.find((option) => option.value === answers[3]).label;
-        content = `<div class="result-explanation"><h2>Why you got this result</h2><p>This conversation path reflects the service and area you selected. Your preferred routine updates: ${update}. Your timing and communication preferences never disqualify you.</p></div><h2>Your next three steps</h2><ol class="next-steps"><li>Think about the questions you’d like to ask.</li><li><a href="about.html">See how I work.</a></li><li>Book a call with me.</li></ol>`;
+        content = `<div class="result-explanation"><h2>Why you got this result</h2><p>${escapeQuizHtml(copy.explanation)} Your preferred routine updates: ${escapeQuizHtml(update)}. Your timing and communication preferences never disqualify you.</p></div><h2>Your next three steps</h2><ol class="next-steps"><li>Think about the questions you’d like to ask.</li><li><a href="about.html">See how I work.</a></li><li>Book a call with me.</li></ol>`;
       } else {
-        const result = readinessResult(answers);
+        const result = readinessResult(answers, kind);
         title = result.title;
         const buyer = kind === 'buy';
         const costsNeedReview = answers[0] !== '1' || answers[2] !== '1';
@@ -541,17 +539,17 @@ if (quizRoot) {
         const proceedsNeedReview = answers[2] !== '1';
         const paperworkNeedReview = answers[5] !== '1';
         const steps = buyer ? [
-          financingNeedReview ? 'Review lender financing or a cash-purchase plan.' : 'Confirm your financing plan is current.',
-          costsNeedReview ? 'Review total monthly costs, upfront costs and reserves.' : 'Write down your must-haves and tradeoffs.',
-          'Book a call with me to discuss your timing and next steps.',
+          financingNeedReview ? copy.financingNeeded : copy.financingReady,
+          costsNeedReview ? copy.costsNeeded : copy.costsReady,
+          copy.finalStep,
         ] : [
-          proceedsNeedReview ? 'Discuss an estimated net-proceeds range.' : 'Review your next housing step and timing.',
-          paperworkNeedReview ? 'Identify ownership and paperwork questions to review with the right professional.' : 'Review preparation, as-is options and a showing plan.',
-          'Book a call with me to discuss your listing strategy.',
+          proceedsNeedReview ? copy.proceedsNeeded : copy.proceedsReady,
+          paperworkNeedReview ? copy.paperworkNeeded : copy.paperworkReady,
+          copy.finalStep,
         ];
-        content = `<div class="result-explanation"><h2>Why you got this result</h2><p>${result.description}</p></div><h2>Your next three steps</h2><ol class="next-steps">${steps.map((step) => `<li>${step}</li>`).join('')}</ol>`;
+        content = `<div class="result-explanation"><h2>Why you got this result</h2><p>${escapeQuizHtml(result.description)}</p></div><h2>Your next three steps</h2><ol class="next-steps">${steps.map((step) => `<li>${escapeQuizHtml(step)}</li>`).join('')}</ol>`;
       }
-      quizRoot.innerHTML = `<p class="eyebrow">Your result · ${quiz.title}</p><h1 tabindex="-1">${title}</h1>${content}${resultActions()}${contactForm()}`;
+      quizRoot.innerHTML = `<p class="eyebrow">Your result · ${escapeQuizHtml(quiz.title)}</p><h1 tabindex="-1">${escapeQuizHtml(title)}</h1>${content}${resultActions()}${contactForm()}`;
       quizRoot.querySelector('[data-edit]').addEventListener('click', () => { questionIndex = 0; renderQuestion(true); });
       quizRoot.querySelector('[data-retake]').addEventListener('click', () => { answers.fill(undefined); showingAllPlaces = false; questionIndex = 0; renderQuestion(true); });
       quizRoot.querySelector('[data-all-places]')?.addEventListener('click', () => { showingAllPlaces = true; renderResult(); });
@@ -561,6 +559,14 @@ if (quizRoot) {
     renderQuestion();
   }
 }
+}
+initializeQuizzes().catch((error) => {
+  console.error('Unable to load quizzes:', error);
+  const root = document.querySelector('#quiz-root');
+  if (root) root.textContent = 'Quizzes are unavailable right now. Please try again later.';
+  const note = document.querySelector('[data-custom-quiz-note]');
+  if (note) { note.hidden = false; note.textContent = 'Quizzes are unavailable right now. Please try again later.'; }
+});
 
 const scrollRevealTargets = document.querySelectorAll(
   'main > .source-1 > .source-section:not(:first-child), ' +

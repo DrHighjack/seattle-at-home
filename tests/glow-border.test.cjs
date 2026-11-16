@@ -20,7 +20,7 @@ test('all pages load the appropriate cache-busted shared stylesheet', () => {
   assert.ok(pages.length > 0, 'no HTML pages found');
   for (const page of pages) {
     const html = fs.readFileSync(path.join(root, page), 'utf8');
-    assert.ok(html.includes('styles.css?v=seller-questions-1'), `${page} missing updated stylesheet`);
+    assert.ok(html.includes('styles.css?v=transcript-feedback-1'), `${page} missing updated stylesheet`);
   }
 });
 

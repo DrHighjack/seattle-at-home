@@ -1,0 +1,98 @@
+{
+  "builtIn": {
+    "buy": {
+      "title": "Am I ready to buy?",
+      "results": {
+        "incompleteTitle": "Let’s fill in the blanks",
+        "incompleteDescription": "There are a few things you’re still exploring. That’s fine. We’ll figure it out together.",
+        "exploreTitle": "Explore options",
+        "planTitle": "Build a plan",
+        "readyTitle": "Discuss next steps",
+        "description": "This is a planning check-in, not a qualification or a guarantee. The next steps below reflect the things you have reviewed and the questions still to explore.",
+        "contactCopy": "Leave your email and I’ll send you a personal note about your result within [RESPONSE TIME].",
+        "financingNeeded": "Review lender financing or a cash-purchase plan.",
+        "financingReady": "Confirm your financing plan is current.",
+        "costsNeeded": "Review total monthly costs, upfront costs and reserves.",
+        "costsReady": "Write down your must-haves and tradeoffs.",
+        "finalStep": "Book a call with me to discuss your timing and next steps."
+      },
+      "questions": [
+        {"question":"Have you outlined your total monthly housing costs?","options":["Not yet","Partly","Yes, I’ve reviewed it","I’m not sure"]},
+        {"question":"Have you explored lender financing or a cash-purchase plan?","options":["Not yet","Partly","Yes, I’ve reviewed it","I’m not sure"]},
+        {"question":"Have you planned for upfront costs and reserves after closing?","options":["Not yet","Partly","Yes, I’ve reviewed it","I’m not sure"]},
+        {"question":"Have you listed your must-haves and tradeoffs?","options":["Not yet","Partly","Yes, I’ve reviewed it","I’m not sure"]},
+        {"question":"Have you considered your lease or existing-home timing?","options":["Not yet","Partly","Yes, I’ve reviewed it","I’m not sure"]},
+        {"question":"Have you reviewed offers, inspections and closing?","options":["Not yet","Partly","Yes, I’ve reviewed it","I’m not sure"]}
+      ]
+    },
+    "sell": {
+      "title": "Am I ready to sell?",
+      "results": {
+        "incompleteTitle": "Let’s fill in the blanks",
+        "incompleteDescription": "There are a few things you’re still exploring. That’s fine. We’ll figure it out together.",
+        "exploreTitle": "Explore options",
+        "planTitle": "Build a plan",
+        "readyTitle": "Discuss next steps",
+        "description": "This is a planning check-in, not a qualification or a guarantee. The next steps below reflect the things you have reviewed and the questions still to explore.",
+        "contactCopy": "Leave your email and I’ll send you a personal note about your result within [RESPONSE TIME].",
+        "proceedsNeeded": "Discuss an estimated net-proceeds range.",
+        "proceedsReady": "Review your next housing step and timing.",
+        "paperworkNeeded": "Identify ownership and paperwork questions to review with the right professional.",
+        "paperworkReady": "Review preparation, as-is options and a showing plan.",
+        "finalStep": "Book a call with me to discuss your listing strategy."
+      },
+      "questions": [
+        {"question":"Have you clarified your goals and timing?","options":["Not yet","Partly","Yes, I’ve reviewed it","I’m not sure"]},
+        {"question":"Have you planned your next housing step?","options":["Not yet","Partly","Yes, I’ve reviewed it","I’m not sure"]},
+        {"question":"Have you discussed estimated net proceeds?","options":["Not yet","Partly","Yes, I’ve reviewed it","I’m not sure"]},
+        {"question":"Have you reviewed preparation and as-is options?","options":["Not yet","Partly","Yes, I’ve reviewed it","I’m not sure"]},
+        {"question":"Have you considered showings and access?","options":["Not yet","Partly","Yes, I’ve reviewed it","I’m not sure"]},
+        {"question":"Have you identified ownership or paperwork questions?","options":["Not yet","Partly","Yes, I’ve reviewed it","I’m not sure"]}
+      ]
+    },
+    "fit": {
+      "title": "Is Emily a good fit?",
+      "results": {
+        "otherResourceTitle": "Let’s discuss the right resource",
+        "unclearTitle": "Let’s clarify your plans",
+        "matchTitle": "Let’s talk about working together",
+        "explanation": "This conversation path reflects the service and area you selected.",
+        "contactCopy": "Leave your email and I’ll send you a personal note about your result within [RESPONSE TIME]."
+      },
+      "questions": [
+        {"question":"What are you hoping to do?","options":["Buy","Sell","Buy and sell","Learn","Another service","I’m not sure"]},
+        {"question":"Where would you like help?","options":["[SERVICE AREA]","Elsewhere","I’m not sure"]},
+        {"question":"Which guidance style sounds useful?","options":["Detailed explanations","Concise recommendations","A mix","I’m not sure"]},
+        {"question":"How would you like routine updates?","options":["Email","Phone","Text, if arranged","I’m not sure"]},
+        {"question":"How hands-on would you like the planning to be?","options":["Collaborative checklists","Recommendations with room to decide","Start by talking","I’m not sure"]},
+        {"question":"When are you considering a move?","options":["Within 3 months","3–6 months","6+ months","I’m not sure"]}
+      ]
+    },
+    "places": {
+      "title": "Which places match my priorities?",
+      "results": {
+        "allTitle": "See all areas",
+        "shortlistTitle": "Three places to start exploring",
+        "intro": "Places to explore; verify individual homes, prices and routes with Emily.",
+        "explanation": "Your single primary priority selects a fixed shortlist. Your other answers are discussion context, not calculated matching. [PLACE] cards are placeholders, not neighborhood recommendations.",
+        "contactCopy": "Leave your email and I’ll send you a personal note about your result within [RESPONSE TIME]."
+      },
+      "cards": [
+        {"name":"[PLACE 1]","why":"[WHY: e.g., several trailheads and large parks within a short drive]","check":"[CHECK: e.g., commute time at rush hour, recent sale prices in your range]"},
+        {"name":"[PLACE 2]","why":"[WHY: e.g., light rail station and a waterfront park]","check":"[CHECK: e.g., HOA rules, parking, noise near the station]"},
+        {"name":"[PLACE 3]","why":"[WHY: e.g., a mix of townhomes, condos and houses near green space]","check":"[CHECK: e.g., property taxes, lot sizes, upcoming construction]"},
+        {"name":"[PLACE 4]","why":"[WHY: e.g., several trailheads and large parks within a short drive]","check":"[CHECK: e.g., commute time at rush hour, recent sale prices in your range]"},
+        {"name":"[PLACE 5]","why":"[WHY: e.g., light rail station and a waterfront park]","check":"[CHECK: e.g., HOA rules, parking, noise near the station]"},
+        {"name":"[PLACE 6]","why":"[WHY: e.g., a mix of townhomes, condos and houses near green space]","check":"[CHECK: e.g., property taxes, lot sizes, upcoming construction]"}
+      ],
+      "questions": [
+        {"question":"What housing type would you like to explore?","options":["Condo","Townhouse","Detached home","Open to options","I’m not sure"]},
+        {"question":"Is there a destination you travel to regularly?","options":["Downtown Seattle","Bellevue","Redmond","Another broad destination","None","I’m not sure"]},
+        {"question":"Which travel preference matters most?","options":["Transit","Walking or biking","Driving","Flexible","I’m not sure"]},
+        {"question":"Which nearby amenity matters most?","options":["Parks and trails","Groceries","Cafes and restaurants","Waterfront access","No preference","I’m not sure"]},
+        {"question":"What is your single primary priority?","options":["Transit access","Parks and trails","Housing options","I’m not sure"]}
+      ]
+    }
+  },
+  "custom": []
+}

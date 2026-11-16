@@ -10,6 +10,9 @@ const entries = [...mapSource.matchAll(/^\s*\{ id: '([^']+)'([^}]*)\},?$/gm)]
   .map(([, id, body]) => ({ id, body }));
 
 test('client story pins, sale prices, and accessible property list stay in sync', () => {
+  assert.match(storiesHtml, /<section class="story-map-section"[^>]*\shidden(?:\s|>)/);
+  assert.equal((storiesHtml.match(/<article class="client-story"/g) ?? []).length, 7);
+  assert.doesNotMatch(storiesHtml, /leaflet@|maplibre-gl@|story-map\.js\?/);
   const ids = entries.map(({ id }) => id);
   const detailIds = entries
     .filter(({ body }) => body.includes('detailsOnly: true'))

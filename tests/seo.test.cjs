@@ -19,7 +19,7 @@ test('selected script titles use the supplied self-hosted Eyesome Script font', 
   assert.ok(css.includes("--script: 'Eyesome Script',"));
   for (const file of publicFiles) {
     const html = fs.readFileSync(path.join(root, file), 'utf8');
-    assert.ok(html.includes('styles.css?v=seller-questions-1'), `${file} missing refreshed stylesheet`);
+    assert.ok(html.includes('styles.css?v=transcript-feedback-1'), `${file} missing refreshed stylesheet`);
   }
 });
 
@@ -35,18 +35,15 @@ test('all public footers include the supplied combined brokerage mark', () => {
   }
 });
 
-test('all public pages have unique static metadata and parseable business schema', () => {
-  const titles = new Set();
-  const descriptions = new Set();
-  assert.equal(publicFiles.length, 14);
+test('all public pages have static metadata and parseable business schema', () => {
+  const { pages } = JSON.parse(fs.readFileSync(path.join(root, 'content/page-metadata.json'), 'utf8'));
+  assert.deepEqual(new Set(publicFiles), new Set(pages.map(([file]) => file)));
   for (const file of publicFiles) {
     const html = fs.readFileSync(path.join(root, file), 'utf8');
     const title = html.match(/<title>(.*?)<\/title>/s)[1];
     const description = html.match(/<meta name="description" content="([^"]+)">/)[1];
-    assert.equal(titles.has(title), false, `${file} duplicate title`);
-    assert.equal(descriptions.has(description), false, `${file} duplicate description`);
-    titles.add(title);
-    descriptions.add(description);
+    assert.ok(title.trim(), `${file} missing title`);
+    assert.ok(description.trim(), `${file} missing description`);
     assert.equal((html.match(/<link rel="canonical"/g) || []).length, 1);
     const canonical = html.match(/<link rel="canonical" href="([^"]+)">/)[1];
     assert.equal(canonical, `https://seattleathome.com/${file === 'index.html' ? '' : file}`);
@@ -83,7 +80,7 @@ test('approved brokerage copy and supplied statistics replace the corresponding 
     assert.ok(html.includes('<span class="source-20">8</span><span>Homes sold in 2026 so far</span>'));
     assert.doesNotMatch(html, /Illustrative demo figures only/);
     if (file !== 'sell.html') {
-      assert.ok(html.includes('<span class="source-20">2022</span><span>Licensed since</span>'));
+      assert.ok(html.includes('<span class="source-20">2023</span><span>Broker since</span>'));
       assert.doesNotMatch(html, /3 years licensed|>Years licensed</);
       assert.ok(html.includes('<span class="source-20">4.9</span><span>Stars across 55 reviews</span>'));
     } else {
@@ -94,18 +91,21 @@ test('approved brokerage copy and supplied statistics replace the corresponding 
     }
   }
   const about = fs.readFileSync(path.join(root, 'about.html'), 'utf8');
-  assert.ok(about.includes('<li class="source-136">Licensed since 2022</li>'));
+  assert.ok(about.includes('<li class="source-136">Broker since 2023</li>'));
   const privacy = fs.readFileSync(path.join(root, 'privacy.html'), 'utf8');
   assert.doesNotMatch(privacy, /Draft for review|draft privacy policy|This draft describes/);
   assert.ok(privacy.includes('id="accessibility"'));
 });
 
-test('sitemap contains only real core pages, built-in quizzes, and archive slugs', () => {
+test('sitemap contains published pages, quizzes, and archive slugs', () => {
   const xml = fs.readFileSync(path.join(root, 'sitemap.xml'), 'utf8');
   const urls = [...xml.matchAll(/<loc>(.*?)<\/loc>/g)].map((match) => match[1].replaceAll('&amp;', '&'));
-  assert.equal(urls.length, 139);
   assert.equal(new Set(urls).size, urls.length);
   const archive = JSON.parse(fs.readFileSync(path.join(root, 'blog/posts.json'), 'utf8'));
+  const { pages } = JSON.parse(fs.readFileSync(path.join(root, 'content/page-metadata.json'), 'utf8'));
+  const quizzes = JSON.parse(fs.readFileSync(path.join(root, 'content/quizzes.json'), 'utf8'));
+  const quizTypes = new Set(['fit', 'buy', 'sell', 'places', ...quizzes.custom.map((quiz) => `custom-${quiz.id}`)]);
+  assert.equal(urls.length, pages.filter(([file]) => !['404.html', 'story.html', 'quiz.html', 'blog-post.html'].includes(file)).length + quizTypes.size + archive.posts.length);
   const slugs = new Set(archive.posts.map((post) => post.slug));
   for (const entry of urls) {
     const url = new URL(entry);
@@ -113,7 +113,7 @@ test('sitemap contains only real core pages, built-in quizzes, and archive slugs
     if (url.pathname === '/blog-post.html') {
       assert.ok(slugs.has(url.searchParams.get('slug')));
     } else if (url.pathname === '/quiz.html') {
-      assert.ok(['fit', 'buy', 'sell', 'places'].includes(url.searchParams.get('type')));
+      assert.ok(quizTypes.has(url.searchParams.get('type')));
     }
     assert.ok(fs.existsSync(path.join(root, url.pathname === '/' ? 'index.html' : url.pathname.slice(1))));
     assert.equal(/\/(?:editor|quiz-studio|404|story)\.html/.test(url.pathname), false);

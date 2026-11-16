@@ -39,11 +39,11 @@ Emily's voice is calm, clear, warm, strategic, sophisticated, approachable, thou
 
 ## Background and people she helps
 
-In the October 21, 2026 discovery conversation, Emily described starting her real estate journey as an investor, including experience owning rentals and managing tenants. She described working with investors, first-time buyers, growing families, people moving up or downsizing, relocating clients, and multigenerational households.
+Emily has been a real estate investor since 2012 and a broker since 2023. Before real estate, she had a long career in corporate HR and business management and earned an MBA at Gonzaga University. She described experience owning rentals and managing tenants, and working with investors, first-time buyers, growing families, people moving up or downsizing, relocating clients, and multigenerational households.
 
 Her perspective includes how a property fits daily life as well as a longer-term plan. She described an interest in helping people bring family members closer, evaluate space for multiple generations, and make practical decisions about a home they own or may buy.
 
-Emily described direct one-on-one client interaction supported by a team behind the scenes. She also described referring people to another professional when she is not the best fit. Do not represent her as a specialist in every property type or as providing legal, tax, lending, or investment-advisory services.
+Emily described direct one-on-one client interaction supported by a team behind the scenes. She replies the same day or within 24 hours and follows up after finding answers she does not know. Her stated specialties include investors, first-time home buyers, business owners, new construction, relocations, probate, estate sales, ADU/DADU development, short sales, property management, and downsizing. She refers clients to local connections for raw land, manufactured homes, and rural or agricultural properties, or when another professional is a better fit. Do not represent her as a specialist in every property type or as providing legal, tax, lending, or investment-advisory services.
 
 The brand includes a community focus: local businesses, neighborhood life, client gatherings, and relationships that continue after closing. Do not infer a fixed event schedule or promise ongoing services not specifically agreed with Emily.
 
@@ -134,7 +134,7 @@ Editor, Quiz Studio, server endpoints, migrations, tests, raw transcripts, and l
 
 - Prefer current approved business/contact information over illustrative mockup text.
 - Text in brackets and explicitly labeled demo figures are unfinished examples, not business facts.
-- Do not infer license numbers, a brokerage street address, exact years licensed, verified sales/review totals, response-time guarantees, or missing prices.
+- Do not infer license numbers, a brokerage street address, additional licensing dates, verified sales/review totals, response-time guarantees beyond the stated response window, or missing prices.
 - Emily's attributed quotes are her own descriptions, not independent reviews. Never convert them into client testimonials.
 - Do not promise investment returns, appreciation, tax results, mortgage approval, a particular sale price, or a deadline.
 - Do not rank places by protected characteristics or infer school quality, safety, or demographic suitability. Ask about practical preferences and consult appropriate current sources.

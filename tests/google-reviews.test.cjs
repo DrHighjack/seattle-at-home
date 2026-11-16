@@ -11,13 +11,15 @@ test('the homepage presents a dated Google review snapshot', () => {
   assert.ok(section, 'missing Google reviews section');
   assert.match(section, /aria-labelledby="google-reviews-heading"/);
   assert.match(section, /<h2 id="google-reviews-heading"/);
+  assert.match(section, /Here’s what others are saying\./);
   assert.match(section, /<p class="eyebrow">Google reviews<\/p>/);
   assert.match(section, /<span class="google-reviews-value">4\.9<\/span>/);
   assert.match(section, /out of 5 · 55 reviews/);
   assert.match(section, /Rating and review count as of November 11, 2026/);
   assert.match(section, /class="google-reviews-stars" aria-hidden="true"/);
+  assert.match(section, /<blockquote class="google-review-quote">[\s\S]*Emily made every step feel warm, exciting, and manageable\.[\s\S]*Amy Schwab · 5-star Google review[\s\S]*<\/blockquote>/);
   assert.ok(section.includes('href="stories.html"'));
-  assert.doesNotMatch(section, /<blockquote|<iframe|<script/);
+  assert.doesNotMatch(section, /<iframe|<script/);
 });
 
 test('the review button links to Emily’s verified Google Maps profile', () => {

@@ -1,6 +1,6 @@
 const mapElement = document.querySelector('#client-story-map');
 
-if (mapElement && window.L) {
+if (mapElement && !mapElement.closest('[hidden]') && window.L) {
   const stories = [
     { id: '919-n-76th', address: '919 N 76th Street, Seattle', type: 'Pending · Buyer representation', summary: 'A Green Lake-walkable home with an income-producing unit drew multiple offers. Coordinating the 1031 exchange intermediary made timing especially important.', outcome: 'Pending after four days', photo: 'Zillow Pictures/1.webp', listingUrl: 'https://www.zillow.com/homedetails/919-N-76th-St-Seattle-WA-98103/48893862_zpid/', lat: 47.6838479, lng: -122.3462844 },
     { id: '4117-eastern', address: '4117 Eastern Avenue N, Seattle', type: 'Buyer representation', summary: 'A first-time buyer purchased after the home had been listed for two weeks. The appraisal came in above the agreed purchase price.', outcome: '$30,000 below asking; $1,000 seller-paid warranty', soldPrice: 1265000, photo: 'Zillow Pictures/2.jpeg', listingUrl: 'https://www.zillow.com/homedetails/4117-Eastern-Ave-N-Seattle-WA-98103/49116421_zpid/', lat: 47.6572449, lng: -122.3293213 },
